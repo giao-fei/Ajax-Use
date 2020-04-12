@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>留言板</title>
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap@4.1.3/dist/css/bootstrap.css">
+</head>
+<body>
+    <div class="container">
+       <h1 class="display-1">留言板</h1>
+       <hr>
+       <ul id="messages" class="list-unstyled">
+       </ul> 
+       <hr>
+       <from>
+           <div class="form-group">
+              <label for="txt_name">诗名：</label>
+                <input class="form-control" id="txt_name" type="text">
+           </div>
+           <div class="form-group">
+              <label for="text_poem">称呼：</label>
+                <input class="form-control" id="txt_poem" type="text">
+           </div>
+           <div class="form-group">
+              <label for="txt_content">留言：</label>
+              <textarea class="form-control" id="txt_content" cols="80" rows="10"></textarea>
+           </div> 
+           <div class="form-group">
+            <label for="text_dynasty">朝代：</label>
+              <input class="form-control" id="txt_dynasty" type="text">
+         </div>
+           <button class="btn btn-primary" id="btn_send">提交</button>
+       </from>
+    <script>
+      // 封装函数
+         function loadMessages () {
+          var ulElement = document.getElementById('messages')
+    // 1、向服务器发起 AJAX 请求，获取全部最新的留言数据
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", "http://localhost:8080/comment");
+          xhr.send();
+          xhr.onreadystatechange = function() {
+              if (this.readyState !== 4) return 
+              const messages = JSON.parse(this.responseText)              
+    // 2、将数据呈现到界面上（DOM）
+              ulElement.innerHTML = ''
+              messages.forEach((item) => {
+                // 1、遍历每一项数据
+                     var liElement = document.createElement('li')
+                     liElement.className = 'media'
+                     liElement.innerHTML = ' <img class="mr-3" src="../img/a.jpg" alt="' + item.name + '">\
+                                           <div class="media-body">\
+                                             <h4>' + item.name +'</h4>\
+                                             <p>' + item.poem +'</p>\
+                                             <p>' + item.content +'</p>\
+                                             <p>' + item.dynasty +'</p>\
+                                           </div>'
+                                             
+                // 2、将这个li追加到ul里面   
+                //                 
+                     ulElement.appendChild(liElement)    
+                     
+            })
+          }
+         }
+         window.onload = function () {
+            loadMessages()
+         }
+    </script>
+    <script>
+      var btn = document.getElementById('btn_send');
+      var txtName = document.getElementById('txt_name');
+      var txtPoem = document.getElementById('txt_poem');
+      var txtContent = document.getElementById('txt_content');
+      var txtDynasty = document.getElementById('txt_dynasty');
+      btn.onclick = function() {
+          var name = txtName.value
+          var poem = txtPoem.value
+          var content = txtContent.value
+          var dynasty = txtDynasty.value
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', 'http://localhost:8080/reply');
+          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+          xhr.send('name=' + name + '&poem=' + poem + '&content=' + content + '&dynasty=' + dynasty);
+          xhr.onreadystatechange = function () {
+              if (this.readyState !== 4) return
+              console.log(this.responseText)
+              loadMessages()
+          }
+          return false     
+      }
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" value='发送请求报文'>
+</body>
+</html>
+<script>
+    // 绑定点击事件
+    document.querySelector('input').onclick = function(){
+         // 创建 对象 异步对象
+         var xhr = new XMLHttpRequest();
+
+         // 请求行
+         xhr.open('GET', '../json/demo.json');
+
+         // 请求头 setRequestHeader
+         xhr.setRequestHeader('heima', 'daydayup');
+
+         // 请求主体 发送
+         xhr.send();
+         xhr.onreadystatechange = function () {
+          if (this.readyState !== 4) return
+          console.log(this.responseText);
+         
+        }
+    }
+</script>

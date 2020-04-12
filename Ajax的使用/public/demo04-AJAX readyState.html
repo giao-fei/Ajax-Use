@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AJAX中POST向后台发送数据</title>
+</head>
+<body>
+    <script>
+      // 创建XMLHttpRequest对象
+      var xhr = new XMLHttpRequest();
+      // 注册回调函数
+      // 配置请求信息
+      xhr.open('POST', 'http://localhost:8081/add');
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      // 发送请求
+      // 表单提交一般请求的格式都是 urlencoded 格式 
+      xhr.send('name=zhangsan&age=18');
+      // 创建回调函数  
+      xhr.onreadystatechange = function() {
+         if(this.readyState !== 4)  return
+           console.log(this.responseText);
+      }
+    </script>
+</body>
+</html>

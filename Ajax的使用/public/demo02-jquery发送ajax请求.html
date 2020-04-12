@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+</head>
+<body>
+    <button id="btn">点击获取</button>
+    <P id="demo">hello world</P>
+    <script src="../js/jquery-3.2.1.min.js"></script>
+    <script>
+        $(function (){
+          $("#btn").click(function () { 
+           // 1、创建对象
+           // 2、建立连接
+           // 3、发送数据
+           // 4、服务器响应
+        
+          $.ajax({
+
+           // 请求资源url
+        //    url: "../json/demo.json",
+           url: "http://localhost:8081/time",
+           // 请求方式
+           type: "GET",
+           // 请求静态资源只能使用get方式不可以是使用post方式
+           // post方式一般用于向服务器发送数据
+           // 传递参数使用的方式是Query String Parameters
+           
+           // 是否异步 默认值是true
+           async: true,
+           // 向服务器端发送的数据
+           // data: "data",
+           // 服务器响应的数据的解析方式
+           dataType: "json",
+           // 成功返回
+           success: function (response) {
+               var response = JSON.stringify(response);
+               document.getElementById('demo').innerHTML = response        
+           },
+           // 失败返回
+           error: function () {
+               console.log("服务器返回数据失败");
+           },
+         });
+           
+        });
+   })
+
+   </script>
+</body>
+</html>

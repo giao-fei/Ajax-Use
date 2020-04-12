@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ajax-basic-1</title>
+</head>
+<body>
+    <button type="button" onclick="displayDate()">AJAX获取当前时间</button>
+    <p id="demo">hello world</p>
+    <script>
+       // 目标：通过 AJAX 请求 /time 地址 获取最新的时间，打印到控制台
+       function displayDate(){
+       // 1. 创建一个请求代理对象 (XHRHttpRequest)
+       var xhr = new XMLHttpRequest();
+       // 2. 通过代理对象建立与服务器的连接
+       xhr.open('GET', 'http://localhost:8081/time');
+       // 3. 基于连接发送请求
+       xhr.send();
+       // 4. 等待服务器的响应
+       // 5. 接收到服务器的响应结果（响应报文中的响应体）
+       xhr.onreadystatechange = function () {
+          if (this.readyState !== 4) return
+       // document.write(this.responseText);
+          document.getElementById('demo').innerHTML = this.responseText ;
+        }
+       }
+    </script>
+</body>
+</html>

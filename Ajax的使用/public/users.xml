@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<user>
+  <id>1</id>
+  <name>勒布朗</name>
+  <age>30</age>
+  <friends>
+     <friend>
+       <id>2</id>
+       <name>欧文</name>
+       <age>27</age>
+      </friend>
+      <friend>
+       <id>3</id>
+       <name>科比</name>
+       <age>40</age>
+      </friend>
+  </friends>
+</user>
